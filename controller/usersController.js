@@ -1,9 +1,11 @@
 import User from '../models/usersModel.js'
 
-//returns 10 users
+// Get route
+// http://localhost:3050/users
+// Returns 10 users
 const indexUsers = async(req,res)=>{
     try {
-        let result = await User.find({}).limit(10);
+        let result = await User.find({}).limit(10); 
         console.log(result);
         if (!result) res.send('Not found').status(404);
         res.send(result).status(200);
@@ -14,16 +16,18 @@ const indexUsers = async(req,res)=>{
     
 }
 
+// POST Route
+// http://localhost:3050/users/addUser
 // Adds a new user
 const addUser = async (req, res) => {
     try {
-        const { id, firstName, lastName, email, birthday } = req.body;
+        const { id, first_name, last_name, email, birthday } = req.body;
 
         // Create a new user instance
         const newUser = new User({
             id,
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             email,
             birthday
         });
@@ -39,28 +43,9 @@ const addUser = async (req, res) => {
     }
 };
 
-// Function to handle DELETE request for deleting a user by ID
-const deleteUser = async (req, res) => {
-    try {
-        const userId = req.params.id;
-
-        // Find the user by ID and delete it
-        const deletedUser = await User.findByIdAndDelete(userId);
-
-        if (!deletedUser) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Return the deleted user as the response
-        res.status(200).json(deletedUser);
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        res.status(500).json({ error: 'Failed to delete user' });
-    }
-}; 
-
-
-//Function to update user info
+// PATCH Route
+// http://localhost:3050/users/update/:id
+// Function to handle updating user data
 const updateUser = async (req, res) =>{
     try{
         const userId = req.params.id;
@@ -81,5 +66,26 @@ const updateUser = async (req, res) =>{
     }
 }
 
+// DELETE Route
+// http://localhost:3050/users/delete/:id
+// Function to handle DELETE request for deleting a user by ID
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        // Find the user by ID and delete it
+        const deletedUser = await User.findByIdAndDelete(userId);
+
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Return the deleted user as the response
+        res.status(200).json(deletedUser);
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ error: 'Failed to delete user' });
+    }
+}; 
 
 export {indexUsers, addUser, deleteUser, updateUser} // Can add more functions

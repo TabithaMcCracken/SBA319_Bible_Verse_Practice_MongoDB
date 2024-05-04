@@ -9,7 +9,7 @@ import User from '../models/usersModel.js'
 import { resolveSoa } from 'dns'
 import { indexUsers, addUser, deleteUser, updateUser } from '../controller/usersController.js'
 
-//get all users- done
+// Get route to get all user data- done
 router.route('/').get(indexUsers)
 
 // Post route to add a user

@@ -8,16 +8,19 @@ const usersSchema = new mongoose.Schema({
     },
     first_name: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     last_name: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     },
     birthday: {
         type: Date,
