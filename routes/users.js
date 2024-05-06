@@ -5,8 +5,8 @@ import express from 'express'
 import { GridFSBucketReadStream } from 'mongodb'
 
 const router = express.Router()
-import User from '../models/usersModel.js'
-import { resolveSoa } from 'dns'
+//import User from '../models/usersModel.js'
+//import { resolveSoa } from 'dns'
 import { indexUsers, addUser, deleteUser, updateUser } from '../controller/usersController.js'
 
 

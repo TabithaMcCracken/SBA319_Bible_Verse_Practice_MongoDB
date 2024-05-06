@@ -7,7 +7,7 @@ import { GridFSBucketReadStream } from 'mongodb'
 const router = express.Router()
 import User from '../models/usersModel.js'
 import { resolveSoa } from 'dns'
-import {indexPracticeVerses, addPracticeVerses, deletePracticeVerses, updatePracticeVerses} from '../controller/practiceVersesController.js'
+import {indexPracticeVerses, addPracticeVerses,  updatePracticeVerses, deletePracticeVerses} from '../controller/practiceVersesController.js'
 
 // Get route to get all user data- done
 router.route('/').get(indexPracticeVerses)

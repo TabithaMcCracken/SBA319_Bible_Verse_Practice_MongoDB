@@ -22,12 +22,13 @@ const practiceVerseSchema = new mongoose.Schema({
 const practiceDataSchema = new mongoose.Schema({
     user_id: {
         type: Number,
-        required: true
+        required: true,
+        index: true
     },
-    practice_bible_verses: {
+    practice_verses: {
         type: [practiceVerseSchema], // Array of practice verses
         required: true
     }
 });
 
-export default mongoose.model('practiceVersesData', practiceDataSchema);
+export default mongoose.model('practice_verses', practiceDataSchema);

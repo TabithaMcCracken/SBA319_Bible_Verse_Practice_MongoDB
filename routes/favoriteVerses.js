@@ -13,13 +13,13 @@ import { indexFavoriteVerses, addFavoriteVerses, deleteFavoriteVerses, updateFav
 router.route('/').get(indexFavoriteVerses)
 
 // Post route to add a user
-router.route('/addPracticeVerse').post(addFavoriteVerses)
+router.route('/addFavoriteVerse').post(addFavoriteVerses)
 
 // DELETE route to delete a user by ID
-router.route('/deletePracticeVerse/:id').delete(deleteFavoriteVerses)
+router.route('/deleteFavoriteVerse/:id').delete(deleteFavoriteVerses)
 
 // Patch route to update user info by ID
-router.route('/updatePracticeVerse/:id').patch(updateFavoriteVerses)
+router.route('/updateFavoriteVerse/:id').patch(updateFavoriteVerses)
 
 
 export default router
