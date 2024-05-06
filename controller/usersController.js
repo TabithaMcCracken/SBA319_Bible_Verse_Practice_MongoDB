@@ -5,7 +5,8 @@ import User from '../models/usersModel.js'
 // Returns 10 users
 const indexUsers = async(req,res)=>{
     try {
-        let result = await User.find({}).limit(10); 
+        // Query with limit and sorting by last name
+        let result = await User.find({}).sort({last_name: 1}).limit(10); 
         console.log(result);
         if (!result) res.send('Not found').status(404);
         res.send(result).status(200);
@@ -19,6 +20,26 @@ const indexUsers = async(req,res)=>{
 // POST Route
 // http://localhost:3050/users/addUser
 // Adds a new user
+
+// To get an error with a duplicate id use:
+// http://localhost:3050/users/addUser
+// {
+//     "id": "101",
+//     "first_name": "Johny",
+//     "last_name": "Doe",
+//     "email": "johny.doe45899@example.com",
+//     "birthday": "06-15-1999"
+// }
+
+// To get an error with a duplicate email use:
+// http://localhost:3050/users/addUser
+// {
+//     "id": "112",
+//     "first_name": "Johny",
+//     "last_name": "Doe",
+//     "email": "johny.doe45899@example.com",
+//     "birthday": "06-15-1999"
+// }
 const addUser = async (req, res) => {
     try {
         const { id, first_name, last_name, email, birthday } = req.body;
@@ -41,7 +62,9 @@ const addUser = async (req, res) => {
         console.error('Error adding user:', error);
         res.status(500).json({ error: 'Failed to add user' });
     }
-};
+}
+
+
 
 // PATCH Route
 // http://localhost:3050/users/update/:id

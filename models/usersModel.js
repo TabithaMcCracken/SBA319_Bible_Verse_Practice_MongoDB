@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import router from "../routes/users.js"
-const usersSchema = new mongoose.Schema({
-    id: {
+
+const userSchema = new mongoose.Schema({
+    user_id: {
         type: Number,
         required: true,
         unique: true
@@ -26,7 +26,50 @@ const usersSchema = new mongoose.Schema({
         type: Date,
         required: true
     }
- 
- })
+});
 
- export default mongoose.model('users', usersSchema)
+export default mongoose.model('users', userSchema);
+
+
+
+// export default mongoose.model('users', usersSchema);
+// // Define validation rules
+// const validationRules = {
+//     $jsonSchema: {
+//         bsonType: "object",
+//         required: ["id", "firstName", "lastName", "email", "birthday"],
+//         properties: {
+//             id: {
+//                 bsonType: "number",
+//                 description: "must be a number and is required"
+//             },
+//             firstName: {
+//                 bsonType: "string",
+//                 description: "must be a string and is required"
+//             },
+//             lastName: {
+//                 bsonType: "string",
+//                 description: "must be a string and is required"
+//             },
+//             email: {
+//                 bsonType: "string",
+//                 description: "must be a string and is required"
+//             },
+//             birthday: {
+//                 bsonType: "date",
+//                 description: "must be a date and is required"
+//             }
+//         }
+//     }
+// };
+
+// // Enable validation for the users collection
+// const UserSchema = new mongoose.Schema({}, { strict: false }); // Define an empty schema to bypass Mongoose schema validation
+// UserSchema.index({ "id": 1 }, { unique: true }); // Ensure id uniqueness
+// UserSchema.index({ "email": 1 }, { unique: true }); // Ensure email uniqueness
+// UserSchema.set('validateBeforeSave', false); // Disable Mongoose validation before saving
+// UserSchema.statics.createCollectionWithValidation = async function () {
+//     return await mongoose.connection.db.createCollection('users', { validator: validationRules });
+// };
+
+// export default mongoose.model('users', UserSchema);
