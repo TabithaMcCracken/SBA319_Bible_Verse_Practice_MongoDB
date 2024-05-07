@@ -1,8 +1,8 @@
 import FavoriteVerses from '../models/favoriteVersesModel.js'
 
-// Get route- works
+// Get route
 // http://localhost:3050/favoriteVerses
-// Returns 10 users by userId
+// Returns 10 users sorted by userId
 const indexFavoriteVerses = async(req,res)=>{
     try {
         const result = await FavoriteVerses.find({}).sort({userId: 1}).limit(10); 
@@ -18,9 +18,29 @@ const indexFavoriteVerses = async(req,res)=>{
     
 }
 
-// POST Route- works
+// POST Route
 // http://localhost:3050/favoriteVerses/addFavoriteVerse
 // Adds a new favorite verse
+
+// {
+//     "user_id": 7,
+//     "favorite_verses": [
+//         {
+//             "_id": "663996f854b3540623dc3b5e",
+//             "book": "a",
+//             "chapter": 4,
+//             "verse": 45,
+//             "text": "Duis mattis egestas metus."
+//         },
+//         {
+//             "_id": "663996f854b3540623dc3b5f",
+//             "book": "duis",
+//             "chapter": 141,
+//             "verse": 126,
+//             "text": "Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat."
+//         }
+//     ]
+// }
 
 const addFavoriteVerses = async (req, res) => {
     try {
@@ -41,6 +61,18 @@ const addFavoriteVerses = async (req, res) => {
 // http://localhost:3050/favoriteVerses/updateFavoriteVerses/:id
 // Function to handle updating user data
 
+// id: 66382bee95499a3c0115c4d1
+// {
+//     "user_id": 1,
+//     "favorite_verses": [
+//         {
+//             "book": "Luke",
+//             "chapter": 62,
+//             "verse": 134,
+//             "text": "Phasellus id sapien in sapien iaculis congue."
+//         }
+//     ]
+// }
 const updateFavoriteVerses = async ({ params: { id }, body }, res) =>{
     try {
         const UpdatedFavoriteVerse = await FavoriteVerses.findByIdAndUpdate(id, { $set: body }, { new: true });
@@ -57,6 +89,9 @@ const updateFavoriteVerses = async ({ params: { id }, body }, res) =>{
 // DELETE Route- works
 // http://localhost:3050/favoriteVerses/deleteVerses/:id
 // Function to handle DELETE request for deleting a user by ID
+
+// id: pick id from database
+
 const deleteFavoriteVerses = async ({ params: { id } }, res) => {
     try {
         const deletedUser = await FavoriteVerses.findByIdAndDelete(id);

@@ -1,8 +1,8 @@
 import User from '../models/usersModel.js'
 
-// Get route- done
+// Get Route
 // http://localhost:3050/users
-// Returns first 10 users in order by last 
+// Returns first 10 users in order by last name
 const indexUsers = async(req,res)=>{
     try {
         // Query with limit and sorting by last name
@@ -18,12 +18,11 @@ const indexUsers = async(req,res)=>{
     
 }
 
-// POST Route- done
+// POST Route
 // http://localhost:3050/users/addUser
 // Adds a new user
 
 // To get an error with a duplicate id use:
-// http://localhost:3050/users/addUser
 // {
 //     "user_id": 1,
 //     "first_name": "Joey",
@@ -33,7 +32,6 @@ const indexUsers = async(req,res)=>{
 // }
 
 // To get an error with a duplicate email use:
-// http://localhost:3050/users/addUser
 // {
 //     "user_id": "116",
 //     "first_name": "Johny",
@@ -41,6 +39,16 @@ const indexUsers = async(req,res)=>{
 //     "email": "johny.doe45899@example.com",
 //     "birthday": "06-15-1999"
 // }
+
+// To add a user without errors:
+// {
+//     "user_id": "128",
+//     "first_name": "mary",
+//     "last_name": "kay",
+//     "email": "marykay@example.com",
+//     "birthday": "06-15-1999"
+// }
+
 const addUser = async (req, res) => {
     try {
         const { user_id, first_name, last_name, email, birthday } = req.body;
@@ -60,9 +68,18 @@ const addUser = async (req, res) => {
 }
 
 
-// PATCH Route- done
+// PATCH Route
 // http://localhost:3050/users/updateUser/:id
 // Function to handle updating user data
+
+// id:66382cfb95499a3c011969b3
+// {
+//     "user_id": "1",
+//     "first_name": "bob",
+//     "last_name": "kay",
+//     "email": "mikeky@example.com",
+//     "birthday": "06-15-1999"
+// }
 
 const updateUser = async ({ params: { id }, body }, res) =>{
     try{
@@ -81,7 +98,7 @@ const updateUser = async ({ params: { id }, body }, res) =>{
     }
 }
 
-// DELETE Route- done
+// DELETE Route
 // http://localhost:3050/users/deleteUser/:id
 // Function to handle DELETE request for deleting a user by ID
 const deleteUser = async ({ params: { id } }, res) => {

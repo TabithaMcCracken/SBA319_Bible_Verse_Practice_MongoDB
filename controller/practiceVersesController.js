@@ -1,8 +1,8 @@
 import PracticeVerses from '../models/practiceVersesModel.js'
 
-// Get route- works
+// Get route
 // http://localhost:3050/practiceVerses
-// Returns 10 users
+// Returns 10 users sorted by user_id
 const indexPracticeVerses = async(req,res)=>{
     try {
         const result = await PracticeVerses.find({}).sort({user_id: 1}).limit(10); 
@@ -18,7 +18,7 @@ const indexPracticeVerses = async(req,res)=>{
     
 }
 
-// POST Route- works
+// POST Route
 // http://localhost:3050/practiceVerses/addPracticeVerse
 // Adds a new verse
 // {
@@ -61,7 +61,7 @@ const addPracticeVerses = async (req, res) => {
 }
 
 
-// PATCH Route- works
+// PATCH Route
 // http://localhost:3050/practiceVerses/updatePracticeVerse/:id
 // Function to handle updating user data
 
