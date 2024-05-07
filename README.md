@@ -11,26 +11,6 @@ This project implements a small Node, Express, and MongoDB server application th
 - Create MongoDB validation rules.
 - Use MongoDB validation to ensure data consistency.
 
-## Technologies Used
-- Node.js
-- Express.js
-- MongoDB
-
-## Setup
-
-1. Clone the repository.
-2. Install dependencies: `npm install`.
-3. Create a .env file in the root directory and add your MongoDB connection string:
-```
-MONGODB_URI=<your_mongodb_connection_string>
-PORT=<optional_port_number>
-```
-
-Note: This application requires a MongoDB database. Make sure you have MongoDB installed and running on your system before proceeding.
-
-3. Start the server: `nodemon index.js`.
-4. Access the API endpoints via the specified routes.
-
 ## Routes
 ### Users- API routes for managing user data
 
@@ -87,6 +67,27 @@ Description: Delete favorite verse info by ID.
 CRUD Operation: Delete
 
 
+## Technologies Used
+- Node.js
+- Express.js
+- MongoDB
+
+## Setup
+
+1. Clone the repository.
+2. Install dependencies: `npm install`.
+3. Create a .env file in the root directory and add your MongoDB connection string:
+```
+MONGODB_URI=<your_mongodb_connection_string>
+PORT=<optional_port_number>
+```
+
+Note: This application requires a MongoDB database. Make sure you have MongoDB installed and running on your system before proceeding.
+
+3. Start the server: `nodemon index.js`.
+4. Access the API endpoints via the specified routes.
+
+
 ## Project Requirements
 
 1. **Use at least three different data collections within the database(5%)**: users, favoriteVerses, and practiceVerses were created. 
@@ -103,7 +104,7 @@ CRUD Operation: Delete
 
 7. **Include sensible indexes for any and all fields that are queried frequently(5%)**: Indexes are used on several fields as appropriate.
 
-8. **Include sensible MongoDB data validation rules for at least one data collection(5%)**: Validation rules are used as appropriate;
+8. **Include sensible MongoDB data validation rules for at least one data collection(5%)**: Validation rules are used as appropriate.
 
 9. **Populate your application's collections with sample data illustrating the use case of the collections. You must include at least five sample documents per collection.(5%)**: Each colletion has more than 5 sample documents.
 
