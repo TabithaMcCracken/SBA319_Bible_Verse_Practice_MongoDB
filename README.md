@@ -25,6 +25,9 @@ This project implements a small Node, Express, and MongoDB server application th
 MONGODB_URI=<your_mongodb_connection_string>
 PORT=<optional_port_number>
 ```
+
+Note: This application requires a MongoDB database. Make sure you have MongoDB installed and running on your system before proceeding.
+
 3. Start the server: `nodemon index.js`.
 4. Access the API endpoints via the specified routes.
 
