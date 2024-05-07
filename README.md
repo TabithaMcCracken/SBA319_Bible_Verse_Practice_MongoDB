@@ -36,21 +36,15 @@ Description: Get all user data.
 CRUD Operation: Read
 
 - POST /users/addUser
-
 Description: Add a new user.
-
 CRUD Operation: Create
 
 - PATCH /users/updateUser/:id
-
 Description: Update user info by ID.
-
 CRUD Operation: Update
 
 - DELETE /users/deleteUser/:id
-
 Description: Delete a user by ID.
-
 CRUD Operation: Delete
 
 ### Practice Verses- API routes for user's practice verses data
