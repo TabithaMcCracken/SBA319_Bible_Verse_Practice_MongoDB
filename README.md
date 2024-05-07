@@ -1,6 +1,6 @@
 # MongoDB Database Application
 
-This project implements a small Node, Express, and MongoDB server application. It provides routes for managing users, users favorite verses, and users practice verses.
+This project implements a small Node, Express, and MongoDB server application that manages data for a Bible memorization app. It provides routes for managing users, users favorite Bible verses, and users practice Bible verses.
 
 ## Objectives
 
@@ -14,7 +14,7 @@ This project implements a small Node, Express, and MongoDB server application. I
 ## Technologies Used
 - Node.js
 - Express.js
-- MongoDB EJS
+- MongoDB
 
 ## Setup
 
@@ -36,15 +36,21 @@ Description: Get all user data.
 CRUD Operation: Read
 
 - POST /users/addUser
+
 Description: Add a new user.
+
 CRUD Operation: Create
 
 - PATCH /users/updateUser/:id
+
 Description: Update user info by ID.
+
 CRUD Operation: Update
 
 - DELETE /users/deleteUser/:id
+
 Description: Delete a user by ID.
+
 CRUD Operation: Delete
 
 ### Practice Verses- API routes for user's practice verses data
