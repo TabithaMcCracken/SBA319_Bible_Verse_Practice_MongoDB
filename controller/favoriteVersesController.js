@@ -1,126 +1,73 @@
-import practiceVerses from '../models/favoriteVersesModel.js'
+import FavoriteVerses from '../models/favoriteVersesModel.js'
 
-// Get route
+// Get route- works
 // http://localhost:3050/favoriteVerses
-// Returns 10 users
+// Returns 10 users by userId
 const indexFavoriteVerses = async(req,res)=>{
     try {
-        // Query with limit and sorting by last name
-        let result = await practiceVerses.find({}).sort({last_name: 1}).limit(10); 
-        console.log(result);
-        if (!result) res.send('Not found').status(404);
+        const result = await FavoriteVerses.find({}).sort({userId: 1}).limit(10); 
+        console.log('Retrieved favorite verses:', result);
+        if (!result || result.length === 0) {
+            return res.status(404).send('Not found');
+        }
         res.send(result).status(200);
     } catch (error){
-        console.error('Error retrieving users: ', error);
+        console.error('Error retrieving favorite verses: ', error);
         res.status(500).send('Internal Server Error')
     }
     
 }
 
-// POST Route
+// POST Route- works
 // http://localhost:3050/favoriteVerses/addFavoriteVerse
-// Adds a new verse
-
-// {
-//     "user_id": 1,
-//     "practice_verses": [
-//       {
-//         "book": "eu",
-//         "chapter": 19,
-//         "verse": 118,
-//         "text": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum."
-//       },
-//       {
-//         "book": "sed",
-//         "chapter": 87,
-//         "verse": 85,
-//         "text": "Aenean lectus."
-//       }
-//     ]
-//   }
+// Adds a new favorite verse
 
 const addFavoriteVerses = async (req, res) => {
     try {
-        const { user_id, practice_verses} = req.body;
-
-        // Create a new user instance
-        const newPracticeVersesData = new practiceVerses({
+        const { user_id, favorite_verses} = req.body;
+        const newFavoriteVersesData = new FavoriteVerses({
             user_id,
-            practice_bible_verses: practice_verses
+            favorite_verses: favorite_verses
         });
-
-        // Save the new user to the database
-        const savedPracticeVerseData = await newPracticeVersesData.save();
-
-        // Return the newly created user as the response
-        res.status(201).json(savedPracticeVerseData);
+        const savedFavoriteVerseData = await newFavoriteVersesData.save();
+        res.status(201).json(savedFavoriteVerseData);
     } catch (error) {
-        console.error('Error adding user:', error);
-        res.status(500).json({ error: 'Failed to add user' });
+        console.error('Error adding favorite verse:', error);
+        res.status(500).json({ error: 'Failed to add favorite verse' });
     }
 }
 
-
-// PATCH Route
-// http://localhost:3050/favoriteVerses/updateFavoriteVerse/:id
+// PATCH Route- works
+// http://localhost:3050/favoriteVerses/updateFavoriteVerses/:id
 // Function to handle updating user data
 
-
-const updateFavoriteVerses = async (req, res) =>{
+const updateFavoriteVerses = async ({ params: { id }, body }, res) =>{
     try {
-        // Extract the ID from the request parameters
-        const { id } = req.params;
-
-        // Extract the new verse data from the request body
-        const { book, chapter, verse, text } = req.body;
-
-        // Find the existing document by ID
-        const existingPracticeVersesData = await practiceVerses.findById(id);
-
-        if (!existingPracticeVersesData) {
-            return res.status(404).json({ error: 'Practice verses data not found' });
+        const UpdatedFavoriteVerse = await FavoriteVerses.findByIdAndUpdate(id, { $set: body }, { new: true });
+        if (!UpdatedFavoriteVerse) {
+            return res.status(404).json({ error: 'Favorite verse data not found' });
         }
-
-        // Append the new verse to the existing array of practice verses
-        existingPracticeVersesData.practice_bible_verses.push({
-            book,
-            chapter,
-            verse,
-            text
-        });
-
-        // Save the updated document back to the database
-        const updatedPracticeVersesData = await existingPracticeVersesData.save();
-
-        // Return the updated practice verses data as the response
-        res.status(200).json(updatedPracticeVersesData);
+        res.status(200).json(UpdatedFavoriteVerse);
     } catch (error) {
-        console.error('Error adding practice verse to existing data:', error);
-        res.status(500).json({ error: 'Failed to add practice verse to existing data' });
+        console.error('Error updating favorite verses:', error);
+        res.status(500).json({ error: 'Failed to update favorite verses' });
     }
 }
 
-
-// DELETE Route
-// http://localhost:3050/users/delete/:id
+// DELETE Route- works
+// http://localhost:3050/favoriteVerses/deleteVerses/:id
 // Function to handle DELETE request for deleting a user by ID
-const deleteFavoriteVerses = async (req, res) => {
+const deleteFavoriteVerses = async ({ params: { id } }, res) => {
     try {
-        const userId = req.params.id;
-
-        // Find the user by ID and delete it
-        const deletedUser = await User.findByIdAndDelete(userId);
-
+        const deletedUser = await FavoriteVerses.findByIdAndDelete(id);
         if (!deletedUser) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'Favorite verse not found' });
         }
-
-        // Return the deleted user as the response
         res.status(200).json(deletedUser);
     } catch (error) {
-        console.error('Error deleting user:', error);
-        res.status(500).json({ error: 'Failed to delete user' });
+        console.error('Error deleting favorite verse:', error);
+        res.status(500).json({ error: 'Failed to delete favorite verses' });
     }
 }; 
 
-export {indexFavoriteVerses, addFavoriteVerses, updateFavoriteVerses, deleteFavoriteVerses } // Can add more functions
+export {indexFavoriteVerses, addFavoriteVerses, updateFavoriteVerses, deleteFavoriteVerses} // Can add more functions

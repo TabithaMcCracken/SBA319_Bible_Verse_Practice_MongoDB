@@ -17,10 +17,10 @@ router.route('/').get(indexUsers)
 router.route('/addUser').post(addUser)
 
 // DELETE route to delete a user by ID
-router.route('/delete/:id').delete(deleteUser)
+router.route('/deleteUser/:id').delete(deleteUser)
 
 // Patch route to update user info by ID
-router.route('/update/:id').patch(updateUser)
+router.route('/updateUser/:id').patch(updateUser)
 
 
 

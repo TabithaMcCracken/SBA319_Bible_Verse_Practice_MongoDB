@@ -1,14 +1,15 @@
 import User from '../models/usersModel.js'
 
-// Get route
+// Get route- done
 // http://localhost:3050/users
-// Returns 10 users
+// Returns first 10 users in order by last 
 const indexUsers = async(req,res)=>{
     try {
         // Query with limit and sorting by last name
-        let result = await User.find({}).sort({last_name: 1}).limit(10); 
-        console.log(result);
-        if (!result) res.send('Not found').status(404);
+        const result = await User.find({}).sort({last_name: 1}).limit(10); 
+        if (!result || result.length === 0) {
+            return res.status(404).send('Not found');
+        }
         res.send(result).status(200);
     } catch (error){
         console.error('Error retrieving users: ', error);
@@ -17,24 +18,24 @@ const indexUsers = async(req,res)=>{
     
 }
 
-// POST Route
+// POST Route- done
 // http://localhost:3050/users/addUser
 // Adds a new user
 
 // To get an error with a duplicate id use:
 // http://localhost:3050/users/addUser
 // {
-//     "id": "101",
-//     "first_name": "Johny",
-//     "last_name": "Doe",
-//     "email": "johny.doe45899@example.com",
+//     "user_id": 1,
+//     "first_name": "Joey",
+//     "last_name": "Billings",
+//     "email": "joe.schmoe@example.com",
 //     "birthday": "06-15-1999"
 // }
 
 // To get an error with a duplicate email use:
 // http://localhost:3050/users/addUser
 // {
-//     "id": "112",
+//     "user_id": "116",
 //     "first_name": "Johny",
 //     "last_name": "Doe",
 //     "email": "johny.doe45899@example.com",
@@ -42,21 +43,15 @@ const indexUsers = async(req,res)=>{
 // }
 const addUser = async (req, res) => {
     try {
-        const { id, first_name, last_name, email, birthday } = req.body;
-
-        // Create a new user instance
+        const { user_id, first_name, last_name, email, birthday } = req.body;
         const newUser = new User({
-            id,
+            user_id,
             first_name,
             last_name,
             email,
             birthday
         });
-
-        // Save the new user to the database
         const savedUser = await newUser.save();
-
-        // Return the newly created user as the response
         res.status(201).json(savedUser);
     } catch (error) {
         console.error('Error adding user:', error);
@@ -65,16 +60,13 @@ const addUser = async (req, res) => {
 }
 
 
-
-// PATCH Route
-// http://localhost:3050/users/update/:id
+// PATCH Route- done
+// http://localhost:3050/users/updateUser/:id
 // Function to handle updating user data
-const updateUser = async (req, res) =>{
-    try{
-        const userId = req.params.id;
-        const updateFields = req.body; // Fields to be updated
 
-        const updatedUser = await User.findByIdAndUpdate(userId, { $set: updateFields }, { new: true });
+const updateUser = async ({ params: { id }, body }, res) =>{
+    try{
+        const updatedUser = await User.findByIdAndUpdate(id, { $set: body }, { new: true });
 
         if (!updatedUser) {
             return res.status(404).json({ error: 'User not found' });
@@ -89,21 +81,15 @@ const updateUser = async (req, res) =>{
     }
 }
 
-// DELETE Route
-// http://localhost:3050/users/delete/:id
+// DELETE Route- done
+// http://localhost:3050/users/deleteUser/:id
 // Function to handle DELETE request for deleting a user by ID
-const deleteUser = async (req, res) => {
+const deleteUser = async ({ params: { id } }, res) => {
     try {
-        const userId = req.params.id;
-
-        // Find the user by ID and delete it
-        const deletedUser = await User.findByIdAndDelete(userId);
-
+        const deletedUser = await User.findByIdAndDelete({ _id: id });
         if (!deletedUser) {
             return res.status(404).json({ error: 'User not found' });
         }
-
-        // Return the deleted user as the response
         res.status(200).json(deletedUser);
     } catch (error) {
         console.error('Error deleting user:', error);
@@ -111,4 +97,5 @@ const deleteUser = async (req, res) => {
     }
 }; 
 
-export {indexUsers, addUser, deleteUser, updateUser} // Can add more functions
+
+export {indexUsers, addUser, updateUser, deleteUser } // Can add more functions

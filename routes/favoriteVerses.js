@@ -15,11 +15,10 @@ router.route('/').get(indexFavoriteVerses)
 // Post route to add a user
 router.route('/addFavoriteVerse').post(addFavoriteVerses)
 
-// DELETE route to delete a user by ID
-router.route('/deleteFavoriteVerse/:id').delete(deleteFavoriteVerses)
-
 // Patch route to update user info by ID
-router.route('/updateFavoriteVerse/:id').patch(updateFavoriteVerses)
+router.route('/updateFavoriteVerses/:id').patch(updateFavoriteVerses)
 
+// DELETE route to delete a user by ID
+router.route('/deleteFavoriteVerses/:id').delete(deleteFavoriteVerses)
 
 export default router

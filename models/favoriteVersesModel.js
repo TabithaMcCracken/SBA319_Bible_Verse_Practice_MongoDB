@@ -24,7 +24,7 @@ const favoriteDataSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    favorite_bible_verses: {
+    favorite_verses: {
         type: [favoriteVersesSchema], // Array of practice verses
         required: true
     }
