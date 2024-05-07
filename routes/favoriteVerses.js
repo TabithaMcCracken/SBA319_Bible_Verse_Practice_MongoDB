@@ -1,12 +1,6 @@
 import express from 'express'
-
-//import db from '../db.conn.js'
-
-import { GridFSBucketReadStream } from 'mongodb'
-
 const router = express.Router()
-import User from '../models/usersModel.js'
-import { resolveSoa } from 'dns'
+
 import { indexFavoriteVerses, addFavoriteVerses, deleteFavoriteVerses, updateFavoriteVerses} from '../controller/favoriteVersesController.js'
 
 // Get route to get all user data- done
